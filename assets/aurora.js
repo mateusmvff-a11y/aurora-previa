@@ -119,6 +119,9 @@
       onUpdate: function (self) {
         var y = self.scroll();
         nav.classList.toggle('is-solid', y > 40);
+        if (root.classList.contains('menu-open')) { return; }
+        if (y > 320 && self.direction === 1) { nav.classList.add('is-hidden'); }
+        else if (self.direction === -1 || y <= 320) { nav.classList.remove('is-hidden'); }
       }
     });
   }
