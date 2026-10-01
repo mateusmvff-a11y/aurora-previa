@@ -134,15 +134,13 @@ html.no-anim{scroll-behavior:smooth}
 
 .hero__covers{position:relative;width:min(100%,37rem);aspect-ratio:1/1.1;justify-self:end}
 .cv{position:absolute;display:block;width:var(--w);left:var(--l);top:var(--t);transform:rotate(var(--r));will-change:transform}
-.cv img{width:100%;box-shadow:0 34px 54px -26px rgba(26,21,18,.6),0 10px 22px -10px rgba(26,21,18,.35);transition:transform .7s var(--ease),box-shadow .7s var(--ease)}
-.cv:hover img,.cv:focus-visible img{transform:translateY(-1.3rem) rotate(var(--hr,2deg)) scale(1.06);box-shadow:0 56px 70px -28px rgba(26,21,18,.62),0 16px 28px -10px rgba(26,21,18,.35)}
-.cv--01,.cv--04,.cv--05{--hr:-2deg}
+.cv img{width:100%;box-shadow:0 34px 54px -26px rgba(26,21,18,.6),0 10px 22px -10px rgba(26,21,18,.35);transition:transform 1s var(--ease),box-shadow 1s var(--ease)}
+.cv:hover img,.cv:focus-visible img{transform:translateY(-.7rem);box-shadow:0 46px 62px -28px rgba(26,21,18,.6),0 14px 26px -10px rgba(26,21,18,.32)}
 .cv--01{--w:32%;--l:3%;--t:5%;--r:-11deg;z-index:1}
 .cv--02{--w:32%;--l:64%;--t:2%;--r:10deg;z-index:1}
 .cv--04{--w:39%;--l:0%;--t:44%;--r:-6deg;z-index:2}
 .cv--03{--w:39%;--l:60%;--t:46%;--r:6deg;z-index:2}
 .cv--05{--w:54%;--l:23%;--t:4%;--r:-1.5deg;z-index:3}
-.cv:hover{z-index:9}
 
 /* ---------- feita para durar ---------- */
 .durar{background:var(--ivory);padding-block:clamp(6rem,12vw,11rem)}
