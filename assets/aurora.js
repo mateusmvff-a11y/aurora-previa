@@ -68,9 +68,6 @@
   function showAll() { root.classList.add('no-anim'); }
   function basics() {
     showAll();
-    var onScroll = function () { nav.classList.toggle('is-solid', window.scrollY > 40); };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
   }
 
   if (!hasGsap || reduce) { basics(); return; }
@@ -108,20 +105,6 @@
           yPercent: 120, duration: 1.5, ease: 'expo.out', stagger: 0.11,
           scrollTrigger: { trigger: el, start: 'top 88%', once: true, onEnter: function () { played = true; } }
         });
-      }
-    });
-  }
-
-  /* ---------- barra de navegacao: some ao descer, volta ao subir ---------- */
-  function buildChrome() {
-    ScrollTrigger.create({
-      start: 0, end: 'max',
-      onUpdate: function (self) {
-        var y = self.scroll();
-        nav.classList.toggle('is-solid', y > 40);
-        if (root.classList.contains('menu-open')) { return; }
-        if (y > 320 && self.direction === 1) { nav.classList.add('is-hidden'); }
-        else if (self.direction === -1 || y <= 320) { nav.classList.remove('is-hidden'); }
       }
     });
   }
@@ -367,7 +350,6 @@
 
   function start() {
     root.classList.add('ready');
-    buildChrome();
     buildHero();
     buildDurar();
     $$('[data-split]').forEach(function (el) { revealLines(el); });
