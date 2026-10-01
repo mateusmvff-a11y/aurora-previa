@@ -114,6 +114,10 @@
 
   /* ---------- barra de navegacao: some ao descer, volta ao subir ---------- */
   function buildChrome() {
+    /* sobre as secoes escuras, o menu troca para letras e logo claros */
+    $$('.ed--05, .ed--03, .ed--01, .club, .foot').forEach(function (s) {
+      ScrollTrigger.create({ trigger: s, start: 'top 46px', end: 'bottom 46px', onToggle: function (self) { nav.classList.toggle('on-dark', self.isActive); } });
+    });
     ScrollTrigger.create({
       start: 0, end: 'max',
       onUpdate: function (self) {
