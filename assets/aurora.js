@@ -315,10 +315,9 @@
     });
 
     var big = $('.foot__big');
-    if (big && hasSplit) {
-      var s = SplitText.create(big, { type: 'chars', mask: 'chars', charsClass: 'ch' });
-      gsap.from(s.chars, {
-        yPercent: 110, duration: 1.9, ease: 'expo.out', stagger: 0.1,
+    if (big) {
+      gsap.from(big, {
+        yPercent: 30, opacity: 0, duration: 1.9, ease: 'expo.out',
         scrollTrigger: { trigger: big, start: 'top 98%', once: true }
       });
     }
