@@ -253,14 +253,12 @@
     var cvs = $$('.club__cv');
 
     gsap.set(lis, { opacity: 0, y: 18 });
-    gsap.set($('.club__note'), { opacity: 0, y: 14 });
     gsap.set(plan, { opacity: 0, y: 16 });
     gsap.set('.price', { opacity: 0, y: 40 });
     gsap.set(cvs, { opacity: 0, xPercent: function (i) { return i ? 40 : -40; } });
 
     gsap.timeline({ scrollTrigger: { trigger: '.checks', start: 'top 86%', once: true } })
-      .to(lis, { opacity: 1, y: 0, duration: 1.1, stagger: 0.12 }, 0)
-      .to('.club__note', { opacity: 1, y: 0, duration: 1 }, 0.5);
+      .to(lis, { opacity: 1, y: 0, duration: 1.1, stagger: 0.12 }, 0);
 
     var o = { v: 0 };
     gsap.timeline({ scrollTrigger: { trigger: '.plan', start: 'top 78%', once: true } })
