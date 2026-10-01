@@ -13,6 +13,7 @@
   --body:#2b2520;
   --mute:#6a5f54;
   --gold:#d9b468;
+  --gold-t:#9a7433;
   --vinho:#3a0f1b;
   --vinho-2:#2a0a13;
 
@@ -68,27 +69,19 @@ html.no-anim{scroll-behavior:smooth}
 .btn--lg{min-height:4.4rem;padding:0 3.4rem;font-size:1.05rem}
 .btn--block{width:100%}
 .btn--ink{background:var(--ink);color:var(--ivory)}
+.btn--line{--fill:var(--ink);--hc:var(--ivory);color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
 .btn--gold{--fill:var(--ivory);background:var(--gold);color:var(--ink)}
 
 /* o texto sai por cima e uma copia dele entra por baixo */
 .btn__w{display:block;overflow:hidden;line-height:1.35}
 .btn__t{position:relative;display:block;transition:transform .7s var(--ease)}
 .btn__t::after{content:attr(data-t);position:absolute;left:0;top:100%}
-.btn:hover .btn__t,.btn:focus-visible .btn__t,.more:hover .btn__t,.more:focus-visible .btn__t{transform:translateY(-100%)}
+.btn:hover .btn__t,.btn:focus-visible .btn__t{transform:translateY(-100%)}
 
-/* link com seta: o texto rola, a seta sai pela direita e outra entra pela esquerda, um fio se desenha */
-.more{position:relative;display:inline-flex;align-items:center;gap:.8rem;padding-bottom:.4rem;font:500 .95rem/1 var(--f-text);text-decoration:none;color:var(--ink)}
-.more::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .7s var(--ease)}
-.more:hover::after,.more:focus-visible::after{transform:scaleX(1)}
-.more__a{position:relative;flex:none;width:1.6rem;height:.7rem;overflow:hidden}
-.more__a svg{position:absolute;inset:0;width:100%;height:100%;transition:transform .7s var(--ease)}
-.more__a svg+svg{transform:translateX(-130%)}
-.more:hover .more__a svg:first-child,.more:focus-visible .more__a svg:first-child{transform:translateX(130%)}
-.more:hover .more__a svg+svg,.more:focus-visible .more__a svg+svg{transform:none}
 
 /* ---------- estados iniciais (so com JS e so ate a animacao assumir) ---------- */
 .js:not(.no-anim) [data-in],
-.js:not(.no-anim) .shelf li{opacity:0}
+.js:not(.no-anim) .cv{opacity:0}
 .js:not(.no-anim) .hero__title{visibility:hidden}
 
 /* ---------- navegacao ---------- */
@@ -123,21 +116,28 @@ html.no-anim{scroll-behavior:smooth}
 .menu__track img{height:min(24vh,14rem);width:auto}
 @keyframes menuslide{to{transform:translateX(calc(-50% - .5rem))}}
 
-/* ---------- capa: titulo gigante e a estante de edicoes ---------- */
-.hero{--hfs:clamp(3.2rem,11.2vw,11.3rem);position:relative;overflow:hidden;background:var(--ivory);min-height:max(100svh,50rem);padding:calc(var(--nav-h) + clamp(1.4rem,4vh,3rem)) 0 clamp(1.8rem,4vh,3rem);display:flex;flex-direction:column}
-.hero__top{width:min(100% - 2*var(--pad),var(--max));margin-inline:auto;display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gap)}
-.hero__eyebrow{grid-column:1/13;margin-bottom:clamp(.4rem,1.4vh,1rem)}
-.hero__title{grid-column:1/13;font:400 var(--hfs)/.88 var(--f-disp);letter-spacing:-.022em;margin-left:-.03em}
+/* ---------- capa: titulo em escada + cacho de capas ---------- */
+.hero{--hfs:clamp(3.2rem,8.8vw,10.6rem);position:relative;overflow:hidden;background:var(--ivory);min-height:max(100svh,50rem);padding:calc(var(--nav-h) + clamp(1rem,3vh,2rem)) 0 clamp(2.5rem,6vh,4rem);display:flex}
+.hero__grid{position:relative;width:min(100% - 2*var(--pad),var(--max));margin:auto;display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr);gap:clamp(1.5rem,4vw,4.5rem);align-items:center}
+.hero__eyebrow{margin-bottom:clamp(.8rem,2vh,1.4rem)}
+.hero__title{font:400 var(--hfs)/.9 var(--f-disp);letter-spacing:-.03em}
 .hero__title span{display:block}
-.hero__title .l2{font-style:italic}
-.hero__side{grid-column:1/-1;margin-left:calc(var(--hfs) * 2.3);max-width:31rem;margin-top:calc(var(--hfs) * -.8);position:relative;z-index:2}
-.hero__lede{font-size:clamp(1.02rem,1.25vw,1.18rem);line-height:1.7;color:var(--body);text-wrap:pretty}
-.hero__cta{display:flex;flex-wrap:wrap;align-items:center;gap:1.4rem 2rem;margin-top:1.6rem}
+.hero__title .l2{padding-left:.42em}
+.hero__title .l3{padding-left:1.05em;font-style:italic;color:var(--gold-t)}
+.hero__side{max-width:36rem;margin-top:clamp(1.6rem,3.6vh,2.6rem)}
+.hero__lede{font-size:clamp(1rem,1.2vw,1.12rem);line-height:1.7;color:var(--mute);text-wrap:pretty}
+.hero__cta{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.6rem}
 
-.shelf{width:min(100% - 2*var(--pad),var(--max));margin:auto auto 0;padding-top:clamp(2.4rem,6vh,4.6rem);display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:clamp(.6rem,1.6vw,1.6rem)}
-.shelf a{display:block;transition:opacity .45s}
-.shelf img{width:100%;box-shadow:0 28px 40px -26px rgba(26,21,18,.55)}
-.shelf:hover a:not(:hover){opacity:.5}
+.hero__covers{position:relative;width:min(100%,37rem);aspect-ratio:1/1.1;justify-self:end}
+.cv{position:absolute;display:block;width:var(--w);left:var(--l);top:var(--t);transform:rotate(var(--r));will-change:transform}
+.cv img{width:100%;box-shadow:0 34px 54px -26px rgba(26,21,18,.6),0 10px 22px -10px rgba(26,21,18,.35);transition:opacity .45s}
+.hero__covers:hover .cv:not(:hover) img{opacity:.5}
+.cv--01{--w:32%;--l:3%;--t:5%;--r:-11deg;z-index:1}
+.cv--02{--w:32%;--l:64%;--t:2%;--r:10deg;z-index:1}
+.cv--04{--w:39%;--l:0%;--t:44%;--r:-6deg;z-index:2}
+.cv--03{--w:39%;--l:60%;--t:46%;--r:6deg;z-index:2}
+.cv--05{--w:54%;--l:23%;--t:4%;--r:-1.5deg;z-index:3}
+.cv:hover{z-index:9}
 
 /* ---------- feita para durar ---------- */
 .durar{background:var(--ivory);padding-block:clamp(6rem,12vw,11rem)}
@@ -274,10 +274,8 @@ html.no-anim{scroll-behavior:smooth}
   .nav__burger{display:block}
   .grid>*{grid-column:1/-1!important;grid-row:auto!important}
   .hero{min-height:0}
-  .hero__side{margin:1.8rem 0 0;max-width:none}
-  .shelf{grid-template-columns:repeat(5,minmax(9.5rem,1fr));overflow-x:auto;padding-bottom:1rem;scroll-snap-type:x mandatory;scrollbar-width:none;width:100%;padding-inline:var(--pad)}
-  .shelf::-webkit-scrollbar{display:none}
-  .shelf li{scroll-snap-align:start}
+  .hero__grid{grid-template-columns:1fr;gap:3rem}
+  .hero__covers{justify-self:center;width:min(100%,28rem)}
   .durar__ph--a{max-width:20rem}
   .durar__ph--b{max-width:12rem}
   .ed__visual{position:relative;top:0;margin-bottom:2.4rem}
@@ -288,6 +286,9 @@ html.no-anim{scroll-behavior:smooth}
   .club__covers{display:none}
 }
 @media (max-width:759px){
+  .hero__title .l2{padding-left:.3em}
+  .hero__title .l3{padding-left:.7em}
+  .hero__cta .btn{flex:1 1 100%}
   .checks{grid-template-columns:1fr;gap:1.1rem}
   .price{font-size:clamp(7rem,34vw,11rem)}
   .foot__links{justify-self:start}

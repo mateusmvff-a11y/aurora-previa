@@ -126,10 +126,12 @@
     });
   }
 
-  /* ---------- capa: titulo sobe por palavra, a estante de edicoes entra em cascata ---------- */
+  /* ---------- capa: titulo em escada sobe por palavra, capas sao "distribuidas" ---------- */
   function buildHero() {
     var title = $('.hero__title');
-    var lis = $$('.shelf li');
+    var cvs = $$('.hero__covers .cv');
+    var base = cvs.map(function (el) { return gsap.getProperty(el, 'rotation'); });
+    var depth = [-70, -115, -45, -65, -26];
     var words = null;
 
     if (hasSplit) {
@@ -141,27 +143,31 @@
     var tl = gsap.timeline({ delay: 0.05 });
     tl.fromTo('.nav', { opacity: 0 }, { opacity: 1, duration: 1, clearProps: 'opacity' }, 0)
       .fromTo('.hero__eyebrow', { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 1 }, 0.05);
-    if (words) { tl.to(words, { yPercent: 0, duration: 1.7, ease: 'expo.out', stagger: 0.12 }, 0.12); }
+    if (words) { tl.to(words, { yPercent: 0, duration: 1.6, ease: 'expo.out', stagger: 0.11 }, 0.12); }
     else { tl.fromTo(title, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1.2 }, 0.12); }
-    tl.fromTo('.hero__side', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 1.2 }, 0.9)
-      .fromTo(lis, { opacity: 0, y: 190 }, {
-        opacity: 1, y: 0, duration: 1.9, ease: 'power4.out', stagger: 0.12
-      }, 0.35);
+    tl.fromTo('.hero__side', { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 1.2 }, 0.85)
+      .fromTo(cvs, {
+        opacity: 0, y: 170,
+        rotation: function (i) { return base[i] + (i % 2 ? 10 : -10); }
+      }, {
+        opacity: 1, y: 0,
+        rotation: function (i) { return base[i]; },
+        duration: 1.9, ease: 'power4.out', stagger: 0.13
+      }, 0.3);
 
-    /* rolando, cada capa sobe num ritmo */
-    var depth = [-30, -70, -110, -70, -30];
+    /* rolando, cada capa sobe num ritmo e se endireita um pouco */
     tl.add(function () {
-      lis.forEach(function (li, i) {
-        gsap.to(li, {
-          y: depth[i], ease: 'none',
+      cvs.forEach(function (el, i) {
+        gsap.to(el, {
+          y: depth[i], rotation: base[i] * 0.35, ease: 'none',
           scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.7 }
         });
       });
-      gsap.to('.hero__top', {
+      gsap.to('.hero__copy', {
         yPercent: -8, ease: 'none',
         scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true }
       });
-    }, 2.4);
+    }, 2.2);
   }
 
   /* ---------- feita para durar ---------- */
