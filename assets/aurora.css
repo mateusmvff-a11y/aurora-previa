@@ -145,8 +145,8 @@ html.no-anim{scroll-behavior:smooth}
 /* ---------- feita para durar ---------- */
 .durar{background:var(--ivory);padding-block:clamp(6rem,12vw,11rem)}
 .durar__grid{row-gap:clamp(2.5rem,5vw,5rem);align-items:start}
-.durar__eyebrow{grid-column:1/4;padding-top:clamp(.8rem,1.6vw,1.8rem)}
-.durar__title{grid-column:4/13;font-size:clamp(3rem,8vw,9.6rem)}
+.durar__title{grid-column:1/13;font-size:clamp(3rem,8vw,9.6rem)}
+@media (min-width:760px){.dl{display:block}}
 .descarta{font-style:italic;color:var(--mute)}
 .durar__ph{margin:0;overflow:hidden}
 .durar__ph img{width:100%}
@@ -222,11 +222,10 @@ html.no-anim{scroll-behavior:smooth}
 .club__title{font-size:clamp(3rem,7.2vw,8.6rem);margin:1rem 0 clamp(2.6rem,4.4vw,4rem);max-width:14em;color:var(--ivory)}
 .checks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.6rem clamp(1.4rem,3vw,3rem);max-width:64rem;font:400 clamp(1rem,1.15vw,1.1rem)/1.6 var(--f-text);color:rgba(245,240,230,.86)}
 .plan{margin-top:clamp(5rem,9vw,8rem);display:flex;flex-direction:column;align-items:center}
-.price{display:flex;align-items:baseline;justify-content:center;margin:.4rem 0 1.4rem;font:400 clamp(9rem,19vw,21rem)/.78 var(--f-disp);font-variant-numeric:lining-nums;letter-spacing:-.04em;color:var(--ivory)}
+.price{display:flex;align-items:baseline;justify-content:center;margin:.4rem 0 2.6rem;font:400 clamp(9rem,19vw,21rem)/.78 var(--f-disp);font-variant-numeric:lining-nums;letter-spacing:-.04em;color:var(--ivory)}
 .price__cur{margin-right:.35em;font-size:.17em;font-style:italic;letter-spacing:0;color:var(--gold)}
 .price__n{display:inline-block;min-width:1.05em}
 .price small{margin-left:.3em;font:italic 400 clamp(1.5rem,2.2vw,2.4rem)/1 var(--f-disp);letter-spacing:0;color:rgba(245,240,230,.72)}
-.plan__note{margin-bottom:2.4rem;font-size:1rem;line-height:1.55;color:rgba(245,240,230,.62)}
 @media (min-width:1000px){
   .checks{max-width:72rem;grid-template-columns:1.5fr 1fr 1fr 1fr;column-gap:clamp(1.4rem,2.6vw,2.6rem)}
   .checks li{margin-inline:auto;text-wrap:balance}
@@ -239,8 +238,6 @@ html.no-anim{scroll-behavior:smooth}
 .club__cv{position:absolute;bottom:clamp(5rem,10vw,9rem);width:clamp(9rem,20vw,23rem);box-shadow:0 44px 64px -32px rgba(0,0,0,.75)}
 .club__cv--l{left:-3vw}
 .club__cv--r{right:-3vw}
-
-.pendente{outline:1px dashed rgba(217,180,104,.6);outline-offset:6px}
 
 /* ---------- fechamento: a mesma rolagem do "por que assinar" e rodape ---------- */
 .fim{background:var(--ivory);text-align:center}

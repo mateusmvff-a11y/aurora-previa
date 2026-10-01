@@ -172,6 +172,22 @@
 
   /* ---------- feita para durar ---------- */
   function buildDurar() {
+    /* o titulo sobe linha por linha enquanto se rola e, no fim, as tres linhas formam uma escada para a direita */
+    var dt = $('[data-durar]');
+    if (dt && hasSplit) {
+      SplitText.create(dt, {
+        type: 'lines', mask: 'lines', linesClass: 'ln', autoSplit: true,
+        onSplit: function (self) {
+          var tl = gsap.timeline({ scrollTrigger: { trigger: dt, start: 'top 88%', end: 'top 18%', scrub: 0.7 } });
+          tl.from(self.lines, { yPercent: 118, rotate: 3, transformOrigin: '0% 100%', duration: 1, ease: 'power3.out', stagger: 0.28 })
+            .to(self.lines, { x: function (i) { return window.innerWidth < 760 ? 0 : i * Math.min(window.innerWidth * 0.045, 80); }, duration: 1.2, ease: 'power1.inOut' }, 0.7);
+          return tl;
+        }
+      });
+    } else if (dt) {
+      gsap.from(dt, { y: 30, opacity: 0, duration: 1.1, scrollTrigger: { trigger: dt, start: 'top 88%', once: true } });
+    }
+
     /* as duas fotos se abrem de baixo para cima e se movem em ritmos diferentes */
     $$('[data-ph]').forEach(function (ph, i) {
       var img = $('img', ph);
@@ -255,7 +271,7 @@
   function buildClub() {
     var n = $('.price__n');
     var lis = $$('.checks li');
-    var plan = $$('.plan .eyebrow, .plan__note, .plan .btn');
+    var plan = $$('.plan .eyebrow, .plan .btn');
     var cvs = $$('.club__cv');
 
     gsap.set(lis, { opacity: 0, y: 18 });
@@ -274,11 +290,22 @@
       .to(plan.slice(1), { opacity: 1, y: 0, duration: 1, stagger: 0.12 }, 0.9)
       .to(cvs, { opacity: 1, xPercent: 0, duration: 2, ease: 'expo.out', stagger: 0.12 }, 0.2);
 
-    /* as capas dos lados sobem e descem um pouco, em ritmos diferentes */
-    cvs.forEach(function (cv, i) {
-      gsap.fromTo(cv, { y: i ? 70 : 40 }, {
-        y: i ? -60 : -80, ease: 'none',
-        scrollTrigger: { trigger: '.club', start: 'top bottom', end: 'bottom top', scrub: 0.6 }
+    /* conforme se rola, as duas capas se aproximam do valor, como um funil, e param antes de encostar */
+    var mm = gsap.matchMedia();
+    mm.add('(min-width: 900px)', function () {
+      var price = $('.price');
+      cvs.forEach(function (cv, i) {
+        gsap.fromTo(cv, { x: 0, y: i ? 40 : 20 }, {
+          x: function () {
+            var w = cv.offsetWidth, vw = cv.parentNode.offsetWidth;
+            var p = price.getBoundingClientRect();
+            var gap = Math.max(40, vw * 0.045);
+            var d = i ? (vw * 1.03 - w) - (p.right + gap) : (p.left - gap) - (w - vw * 0.03);
+            return (i ? -1 : 1) * Math.max(0, d);
+          },
+          y: i ? -30 : -40, ease: 'none',
+          scrollTrigger: { trigger: '.plan', start: 'top 100%', end: 'top 30%', scrub: 0.8, invalidateOnRefresh: true }
+        });
       });
     });
   }
